@@ -1,0 +1,9 @@
+numpy
+pandas
+scipy
+matplotlib
+biopython
+openpyxl
+
+# R dependencies and versions are recorded in renv.lock.
+# Python versions were not locked in the original project.

@@ -1,0 +1,10 @@
+figure	path	analysis
+Fig. 1; ED1	Fig1_intro_spatial/03_code/peak_profiles/run_all_analyses.sh	Profiles, spatial comparisons, surface distances
+Fig. 2; ED2	Fig2_ICAT_identification/03_code/candidate_analysis	CF5 proteomics, annotation and QC
+Fig. 3b; ED3	Fig3_ICAT_neighboring/03_code/localization_perturbation/ICAT_localization_pertubation_analysis.R	Localisation matrix and Gower PCoA
+Fig. 3c,d	Fig3_ICAT_neighboring/03_code/spatial_relationship	PLA and MIC2/ICAT position
+Fig. 3e; ED5	Fig6_ICAT_interactome/03_code/interactome	N/C bait comparison and QC; final workflow selection pending
+Fig. 4c,f,h,j; ED6a	Fig4_phenotype_targeting/03_code	Plaque, invasion, secretion, complementation and egress
+Fig. 4e	Fig5_secretion_mechanism/03_code/2D_motility/2D_living_motility.R	Motility composition
+Fig. 5c,d,e; ED7c,d	Fig5_secretion_mechanism/03_code/microneme_spatial_restriction	MCI, position classes and abundance
+Fig. 5f; ED7e	Fig5_secretion_mechanism/03_code/conoid_evolution	Comparative conservation; confirm final panel version

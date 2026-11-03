@@ -1,0 +1,26 @@
+Package: ICATFigures
+Type: Project
+Title: Reproducible Analyses for ICAT Figures 1-5
+Version: 0.1.0
+Authors@R: person("ICAT", "Project", role = c("aut", "cre"), email = "icat@example.invalid")
+Description: Project-level dependency declaration for the ICAT manuscript figures.
+License: file LICENSE
+Encoding: UTF-8
+Imports:
+    BiocManager,
+    circlize,
+    cluster,
+    ComplexHeatmap,
+    dplyr,
+    ggplot2,
+    ggpubr,
+    ggrepel,
+    patchwork,
+    ragg,
+    readxl,
+    rstatix,
+    rstudioapi,
+    scales,
+    stringr,
+    tidyr,
+    tidyverse
