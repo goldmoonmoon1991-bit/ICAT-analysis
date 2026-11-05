@@ -1,31 +1,35 @@
-# ICAT manuscript analysis code
+# ICAT key-analysis code
 
-Snapshot date: 2026-11-02. Custom R and Python analyses accompanying the ICAT manuscript. Main figures are Fig. 1–5 and Extended Data Fig. 1–7. Historical directory names Fig5 and Fig6 do not correspond directly to the final figure numbering; see CODE_MAP.tsv.
+Version date: 2026-11-04. Five standalone R analysis packages accompanying the ICAT manuscript. Each archive contains code, English documentation, example input configurations, a dependency lockfile and the original copyright notice. Experimental data, source data, observed input matrices, result snapshots, images and plotting code are excluded.
 
-## Download and setup
+## Packages
 
-When distributed on GitHub, download and extract ICAT-analysis-20261102.zip. Keep the directory layout intact. The archive contains the analysis scripts, an R dependency lockfile, numeric inputs and tabular output snapshots. It does not contain raw microscopy, raw mass spectrometry or uncropped western blots.
+| Code package | Manuscript panels |
+|---|---|
+| [Spatial profile quantification](01_spatial_profiles_20261104_code_only.zip) | Fig. 1b,e,f; Fig. 2e,f; Extended Data Fig. 1d |
+| [Proteomic screening and interaction comparison](02_proteomics_20261104_code_only.zip) | Fig. 2b,c; Fig. 3e candidate; Extended Data Fig. 2d and 5f |
+| [Localization perturbation and Gower–PCoA](03_localization_pcoa_20261104_code_only.zip) | Fig. 3b; Extended Data Fig. 3b |
+| [MCI and positional-class association](04_mci_classes_20261104_code_only.zip) | Fig. 5d,e; Extended Data Fig. 7d |
+| [Conservation and structural scoring](05_conservation_20261104_code_only.zip) | Fig. 5f; Extended Data Fig. 7e |
 
-From the extracted project root, install R and restore the R environment with `renv::restore()` (or install renv first if needed). Original R package versions are recorded in renv.lock. Optional Python components require the packages in requirements.txt; the original project did not supply a Python version lock.
+See [CANDIDATE_CATALOG.md](CANDIDATE_CATALOG.md) for workflow scope, external input requirements and interpretation limits. Archives are independently usable; extract only the modules you need. Each extracted package contains README.md, INPUTS.md, VALIDATION.md, SOURCE_PROVENANCE.json, renv.lock, LICENSE and a single run_analysis.R entry point.
 
-## Analysis entry points
+## Setup and execution
 
-See CODE_MAP.tsv. Run individual scripts from their original relative locations, for example `Rscript --vanilla Fig5_secretion_mechanism/03_code/microneme_spatial_restriction/ICATkd_MIC2_width_ratio.R`. Run the Fig1 shell entry point to rebuild group-level profiles before downstream spatial comparisons. Outputs are written inside the extracted copy.
+Install R 4.5.0 and renv, then restore the selected package environment with `renv::restore(lockfile="renv.lock", prompt=FALSE)` from its extracted directory. Copy an example configuration outside the package and set the external input paths and field mappings.
 
-## Reproducibility limits
+```sh
+Rscript /path/to/module/run_analysis.R --config /path/to/config.json --out-dir /path/to/external/results
+```
 
-This is an analysis snapshot, not a claim that every manually assembled figure can be rebuilt end to end. Some analyses need third-party annotation workbooks or original protein exports absent from this release. Existing processed tables are included as seeds for downstream plots. INPUT_MANIFEST.tsv identifies included numeric inputs; the source-data package provides panel mapping and provenance.
+Relative input paths resolve against the configuration file. Numerical outputs must be outside the code package and input locations. Missing files or required fields produce explicit errors; the code does not generate substitute observations or modify inputs. Data are distributed separately; upstream vendor exports and reference annotations are required for some tasks. See INPUTS.md for the exact schema.
 
-The N/C bait heatmap workflow retains its original exploratory filename because it is a candidate for the final Fig. 3e. Confirm the final heatmap version before treating this as a frozen publication release. Legacy per-figure run_all scripts are preserved only for context; they do not cover every final panel. Fig3's legacy runner contains an incorrect optional PLA subpath; use the script under spatial_relationship directly. The original Fig2 runner also omits its peak-profile analyses.
+## Validation and interpretation
 
-Publication checks still outstanding: final Fig. 2f cell selection, Fig. 5f figure/legend agreement, ED6 panel numbering and ED7c statistical comparison. These are reported in the attachment audit rather than silently corrected here. The Fig. 3d value is 33.344 ± 13.077 nm after expansion correction, consistent with 33 ± 13 nm in the legend. Fig. 5e bin counts 43/51, 28/51 and 4/51 match the supplied figure.
+All 25 R files passed syntax checks. Twenty external-input/task configurations, 79 numerical/consistency checks and 33 entry-point, invalid-input and workflow-handoff checks passed. Validation preserved all 349 original external input files. SHA256SUMS.txt records the checksums of the five archives. A fresh network-based dependency installation was not performed.
 
-## Rights and external data
+The construct-preference branch remains exploratory pending author confirmation of the final Fig. 3e workflow. MCI association models retain the original pooled cell-level interpretation. Existing SPM1 dual module membership and scientific scoring definitions are unchanged. The localization package pins the tested cluster 2.1.8.1 environment; the earlier full-project lockfile recorded 2.1.8.2. Details and per-module numerical comparisons are documented in VALIDATION.md.
 
-The project's existing all-rights-reserved LICENSE is preserved. No new open-source licence or third-party redistribution permission is asserted. Public code access does not by itself grant an additional software licence. Third-party resources should be obtained from their original cited sources. The reused PXD039434 identifier must not be substituted for the accession for newly generated proteomics.
+## Rights and versioning
 
-## Additional numeric exports
-
-Run `python export_submission_tables.py` to export the invasion and egress numerical tables and the paired abundance test stated in the legend. This helper requires Rscript on PATH, plus Python numpy and pandas. It invokes base R t.test for consistency with the original R scripts. Derived tables are written to submission_tables/ and do not change raw inputs. The archived legacy ratio-based abundance tests remain separate.
-
-The Python LFQ pipeline under shared/dda_lfq_pipeline is optional and requires its original external FragPipe inputs. Orthology/network refresh scripts retain their original external-data requirements.
+The original all-rights-reserved LICENSE is retained. No additional software licence or third-party data redistribution permission is asserted. This code-only version supersedes the earlier full snapshot in the current branch. Git commit history remains available for provenance.
